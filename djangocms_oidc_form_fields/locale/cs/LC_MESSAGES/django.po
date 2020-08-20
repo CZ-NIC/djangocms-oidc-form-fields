@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Zdeněk Böhm <zdenek.bohm@nic.cz>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-20 17:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Zdeněk Böhm <zdenek.bohm@nic.cz>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: cms_plugins.py:20
+msgid "OIDC Form"
+msgstr "OIDC Formulář"
+
+#: cms_plugins.py:21
+msgid "OpenID Connect Form"
+msgstr "OpenID Connect Formulář"
+
+#: cms_plugins.py:93
+msgid "OpenID Connect Form Field"
+msgstr "OpenID Connect Formulářové pole"
+
+#: cms_plugins.py:135
+msgid "OIDC Text Field"
+msgstr "OIDC Textové pole"
+
+#: cms_plugins.py:140
+msgid "OIDC Text Area Field"
+msgstr "OIDC Víceřádkové textové pole"
+
+#: cms_plugins.py:145
+msgid "OIDC Hidden Field"
+msgstr "OIDC Skryté pole"
+
+#: cms_plugins.py:150
+msgid "OIDC Phone Field"
+msgstr "OIDC Pole telefon"
+
+#: cms_plugins.py:155
+msgid "OIDC Number Field"
+msgstr "OIDC Pole číslo"
+
+#: cms_plugins.py:160
+msgid "OIDC Email Field"
+msgstr "OIDC Pole e-mail"
+
+#: cms_plugins.py:165
+msgid "OIDC Yes/No Field"
+msgstr "OIDC Ano/Ne pole"
+
+#: cms_plugins.py:170
+msgid "OIDC Email into From Field"
+msgstr "OIDC E-mail pro From"
+
+#: models.py:10
+msgid "Unmodifiable"
+msgstr "Nezměnitelné"
+
+#: models.py:11
+msgid "The value of the field cannot be changed by the user."
+msgstr "Hodnotu pole nemůže uživatel změnit."
+
+#: models.py:14
+msgid "OIDC attributes"
+msgstr "OIDC atributy"
+
+#: models.py:15
+msgid "OIDC attributes handovered from provider (names separated by space)."
+msgstr "Seznam OIDC údajů předaných poskytovatelem (položky oddělené mezerou)."
