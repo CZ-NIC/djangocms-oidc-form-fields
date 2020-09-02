@@ -12,7 +12,8 @@ from aldryn_forms.signals import form_post_save, form_pre_save
 from cms.plugin_pool import plugin_pool
 from djangocms_oidc.constants import DJNAGOCMS_USER_SESSION_KEY
 
-from .models import OIDCFieldPlugin
+from .models import (OIDCEmailFieldPlugin, OIDCFieldPlugin,
+                     OIDCTextAreaFieldPlugin)
 
 
 @plugin_pool.register_plugin
@@ -82,7 +83,7 @@ class OIDCFormPlugin(FormPlugin):
         for field in fields:
             plugin_instance = field.plugin_instance
             field_plugin = plugin_instance.get_plugin_class_instance()
-            if isinstance(plugin_instance, OIDCFieldPlugin):
+            if hasattr(plugin_instance, 'FIELD_TYPE_OIDC'):
                 form_fields[field.name] = field_plugin.get_form_field(plugin_instance, request)
             else:
                 form_fields[field.name] = field_plugin.get_form_field(plugin_instance)
@@ -138,6 +139,7 @@ class OIDCTextField(OIDCFieldMixin, TextField):
 @plugin_pool.register_plugin
 class OIDCTextAreaField(OIDCFieldMixin, TextAreaField):
     name = _('OIDC Text Area Field')
+    model = OIDCTextAreaFieldPlugin
 
 
 @plugin_pool.register_plugin
@@ -158,6 +160,7 @@ class OIDCNumberField(OIDCFieldMixin, NumberField):
 @plugin_pool.register_plugin
 class OIDCEmailField(OIDCFieldMixin, EmailField):
     name = _('OIDC Email Field')
+    model = OIDCEmailFieldPlugin
 
 
 @plugin_pool.register_plugin
@@ -168,3 +171,4 @@ class OIDCBooleanField(OIDCFieldMixin, BooleanField):
 @plugin_pool.register_plugin
 class OIDCEmailIntoFromField(OIDCFieldMixin, EmailIntoFromField):
     name = _('OIDC Email into From Field')
+    model = OIDCEmailFieldPlugin
