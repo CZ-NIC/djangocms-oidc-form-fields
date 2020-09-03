@@ -1,5 +1,6 @@
 import re
 
+from django import forms
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
@@ -106,6 +107,8 @@ class OIDCFieldMixin:
     def get_form_field(self, instance, request=None):
         form_field_class = self.get_form_field_class(instance)
         form_field_kwargs = self.get_form_field_kwargs(instance, request)
+        if issubclass(form_field_class, forms.fields.BooleanField) and 'max_length' in form_field_kwargs:
+            form_field_kwargs.pop('max_length')
         field = form_field_class(**form_field_kwargs)
         # allow fields access to their model plugin class instance
         field._model_instance = instance
