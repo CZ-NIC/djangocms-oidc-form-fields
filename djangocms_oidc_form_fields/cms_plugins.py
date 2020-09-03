@@ -117,6 +117,8 @@ class OIDCFieldMixin:
         values = []
         for key in re.split(r'\s+', attributes):
             value = user_info.get(key)
+            if isinstance(value, dict) and value.get('formatted'):
+                value = value['formatted']
             values.append("" if value is None else force_text(value))
         return " ".join(values)
 
