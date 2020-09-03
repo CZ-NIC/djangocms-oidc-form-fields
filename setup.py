@@ -1,4 +1,9 @@
 from setuptools import setup, find_packages
+from distutils.command.build import build
+
+
+class CustomBuild(build):
+    sub_commands = [("compile_catalog", lambda x: True)] + build.sub_commands
 
 
 setup(
@@ -36,6 +41,7 @@ setup(
         'aldryn-forms @ git+https://github.com/divio/aldryn-forms@5.0.4',
     ),
     packages=find_packages(exclude=['tests']),
+    cmdclass={"build": CustomBuild},
     include_package_data=True,
     zip_safe=False
 )
