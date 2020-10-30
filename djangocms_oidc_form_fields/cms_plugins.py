@@ -8,6 +8,7 @@ from aldryn_forms.cms_plugins import (
     HiddenField,
     NumberField,
     PhoneField,
+    SelectField,
     TextAreaField,
     TextField,
 )
@@ -182,3 +183,8 @@ class OIDCBooleanField(OIDCFieldMixin, BooleanField):
 class OIDCEmailIntoFromField(OIDCFieldMixin, EmailIntoFromField):
     name = _('OIDC Email into From Field')
     model = OIDCEmailFieldPlugin
+
+
+@plugin_pool.register_plugin
+class OIDCSelectField(OIDCFieldMixin, SelectField):
+    name = _('OIDC Select Field')
