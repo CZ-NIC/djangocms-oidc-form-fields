@@ -35,11 +35,14 @@ setup(
         'Framework :: Django CMS :: 3.7',
     ),
     install_requires=(
-        'djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@28230-create-plugin',
+        'djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@1.0.0',
         # Default installs aldryn-forms 4.0.1, which is incompatible.
         # Version aldryn-forms > 5.0.4 is compatible only with python 3.7.
-        'aldryn-forms @ git+https://github.com/divio/aldryn-forms@5.0.4',
+        'aldryn-forms @ git+https://github.com/zbohm/aldryn-forms.git@email-into-from_5_0_5',  # 5.0.1.2
     ),
+    extras_require={
+        'quality': ['isort', 'flake8'],
+    },
     packages=find_packages(exclude=['tests']),
     cmdclass={"build": CustomBuild},
     setup_requires=["Babel >=2.3"],

@@ -1,20 +1,25 @@
 import re
 
-from django import forms
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
-
-from aldryn_forms.cms_plugins import (BooleanField, EmailField,
-                                      EmailIntoFromField, FormPlugin,
-                                      HiddenField, NumberField, PhoneField,
-                                      TextAreaField, TextField)
+from aldryn_forms.cms_plugins import (
+    BooleanField,
+    EmailField,
+    EmailIntoFromField,
+    FormPlugin,
+    HiddenField,
+    NumberField,
+    PhoneField,
+    TextAreaField,
+    TextField,
+)
 from aldryn_forms.forms import FormSubmissionBaseForm
 from aldryn_forms.signals import form_post_save, form_pre_save
 from cms.plugin_pool import plugin_pool
+from django import forms
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext_lazy as _
 from djangocms_oidc.constants import DJNAGOCMS_USER_SESSION_KEY
 
-from .models import (OIDCEmailFieldPlugin, OIDCFieldPlugin,
-                     OIDCTextAreaFieldPlugin)
+from .models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
 
 
 @plugin_pool.register_plugin

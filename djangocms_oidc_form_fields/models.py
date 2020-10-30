@@ -1,7 +1,6 @@
+from aldryn_forms.models import FieldPluginBase
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from aldryn_forms.models import FieldPluginBase
 
 
 class OIDCFieldPluginBase(FieldPluginBase):
