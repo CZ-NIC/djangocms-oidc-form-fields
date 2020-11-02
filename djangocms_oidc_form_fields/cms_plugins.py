@@ -14,13 +14,15 @@ from aldryn_forms.cms_plugins import (
 )
 from aldryn_forms.forms import FormSubmissionBaseForm
 from aldryn_forms.signals import form_post_save, form_pre_save
+from aldryn_forms.cms_plugins import Field
 from cms.plugin_pool import plugin_pool
 from django import forms
+from django.contrib.admin import TabularInline
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from djangocms_oidc.constants import DJNAGOCMS_USER_SESSION_KEY
 
-from .models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
+from .models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCOption, OIDCTextAreaFieldPlugin
 
 
 @plugin_pool.register_plugin
@@ -185,6 +187,22 @@ class OIDCEmailIntoFromField(OIDCFieldMixin, EmailIntoFromField):
     model = OIDCEmailFieldPlugin
 
 
+class OIDCSelectOptionInline(TabularInline):
+    model = OIDCOption
+
+
 @plugin_pool.register_plugin
 class OIDCSelectField(OIDCFieldMixin, SelectField):
     name = _('OIDC Select Field')
+    inlines = [OIDCSelectOptionInline]
+
+    def get_form_field_kwargs(self, instance, request=None):
+        # kwargs = super(OIDCSelectField, self).get_form_field_kwargs(instance)
+        kwargs = Field.get_form_field_kwargs(self, instance)
+        kwargs = {}
+        kwargs['queryset'] = instance.oidcoption_set.all()
+        for opt in kwargs['queryset']:
+            if opt.default_value:
+                kwargs['initial'] = opt.pk
+                break
+        return kwargs
