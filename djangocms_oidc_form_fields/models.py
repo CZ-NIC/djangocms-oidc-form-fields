@@ -1,6 +1,17 @@
-from aldryn_forms.models import FieldPluginBase
+from aldryn_forms.models import FieldPluginBase, FormSubmissionBase
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+
+class OIDCFormSubmission(FormSubmissionBase):
+    """OIDC Form submission with the field user_info."""
+
+    user_info = models.TextField(verbose_name=_('Handovered data'), null=True, blank=True, editable=False)
+
+    class Meta:
+        ordering = ['-sent_at']
+        verbose_name = _('OIDC Form submission')
+        verbose_name_plural = _('OIDC Form submissions')
 
 
 class OIDCFieldPluginBase(FieldPluginBase):

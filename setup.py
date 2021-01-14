@@ -37,10 +37,10 @@ setup(
     install_requires=(
         'django>=2.0.0,<3.0.0',
         'django-cms==3.7.4',
-        'djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@1.0.0',
+        'djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@frozen-versions',
         # Default installs aldryn-forms 4.0.1, which is incompatible.
         # Version aldryn-forms > 5.0.4 is compatible only with python 3.7.
-        'aldryn-forms @ git+https://github.com/zbohm/aldryn-forms.git@email-into-from_5_0_5',
+        'aldryn-forms @ git+https://github.com/zbohm/aldryn-forms.git@email-into-from_5_0_4',
     ),
     extras_require={
         'quality': ['isort', 'flake8'],

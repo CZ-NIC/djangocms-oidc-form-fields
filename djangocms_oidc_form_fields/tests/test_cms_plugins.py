@@ -1,7 +1,7 @@
 from aldryn_forms.models import FormPlugin
 from cms.api import add_plugin, create_page
 from cms.test_utils.testcases import CMSTestCase
-from djangocms_oidc.constants import DJNAGOCMS_USER_SESSION_KEY
+from djangocms_oidc.constants import DJANGOCMS_USER_SESSION_KEY
 
 
 class TestOIDCFormPlugin(CMSTestCase):
@@ -25,7 +25,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         self.page.publish('en')
 
         session = self.client.session
-        session[DJNAGOCMS_USER_SESSION_KEY] = {
+        session[DJANGOCMS_USER_SESSION_KEY] = {
             'email': 'mail@foo.foo',
             'name': 'Tester',
             'validated': True,
@@ -76,7 +76,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         self.page.publish('en')
         aldryn_form = FormPlugin.objects.last()
         session = self.client.session
-        session[DJNAGOCMS_USER_SESSION_KEY] = {
+        session[DJANGOCMS_USER_SESSION_KEY] = {
             'email': 'mail@foo.foo',
         }
         session.save()

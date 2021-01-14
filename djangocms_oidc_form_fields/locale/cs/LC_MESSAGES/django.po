@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Zdeněk Böhm <zdenek.bohm@nic.cz>, 2020.
+# msgattrib --sort-output --no-location --no-obsolete --no-fuzzy $FILE_PO $FILE_MO
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-20 17:00+0200\n"
+"POT-Creation-Date: 2021-01-15 09:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Zdeněk Böhm <zdenek.bohm@nic.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,62 +19,104 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: cms_plugins.py:20
-msgid "OIDC Form"
-msgstr "OIDC Formulář"
+msgid "Additional body text used when email notifications are active."
+msgstr ""
+"Další část textu je použita, pokud je zatržen přepínač Další část textu e-"
+"mailu."
 
-#: cms_plugins.py:21
-msgid "OpenID Connect Form"
-msgstr "OpenID Connect Formulář"
+msgid "Additional email body"
+msgstr "Další část textu e-mailu"
 
-#: cms_plugins.py:93
-msgid "OpenID Connect Form Field"
-msgstr "OpenID Connect Formulářové pole"
+msgid "Form data:"
+msgstr "Data formuláře:"
 
-#: cms_plugins.py:135
-msgid "OIDC Text Field"
-msgstr "OIDC Textové pole"
+#, python-format
+msgid "Form name: %(form_name)s"
+msgstr "Jméno formuláře: %(form_name)s"
 
-#: cms_plugins.py:140
-msgid "OIDC Text Area Field"
-msgstr "OIDC Víceřádkové textové pole"
+msgid "Handovered data"
+msgstr "Předané údaje"
 
-#: cms_plugins.py:145
-msgid "OIDC Hidden Field"
-msgstr "OIDC Skryté pole"
+msgid "Handovered data:"
+msgstr "Předané údaje:"
 
-#: cms_plugins.py:150
-msgid "OIDC Phone Field"
-msgstr "OIDC Pole telefon"
+msgid "OIDC - Only send email with handovered data"
+msgstr "OIDC - Jen odeslat e-mail s předanými údaji"
 
-#: cms_plugins.py:155
-msgid "OIDC Number Field"
-msgstr "OIDC Pole číslo"
+msgid "OIDC - Send email with handovered data and save to the site"
+msgstr "OIDC - Odeslat e-mail s předanými údaji a uložit na web"
 
-#: cms_plugins.py:160
 msgid "OIDC Email Field"
 msgstr "OIDC Pole e-mail"
 
-#: cms_plugins.py:165
-msgid "OIDC Yes/No Field"
-msgstr "OIDC Ano/Ne pole"
-
-#: cms_plugins.py:170
 msgid "OIDC Email into From Field"
 msgstr "OIDC E-mail pro From"
 
-#: models.py:10
-msgid "Unmodifiable"
-msgstr "Nezměnitelné"
+msgid "OIDC Form"
+msgstr "OIDC Formulář"
 
-#: models.py:11
-msgid "The value of the field cannot be changed by the user."
-msgstr "Hodnotu pole nemůže uživatel změnit."
+msgid "OIDC Form submission"
+msgstr "OIDC Odeslaný formulář"
 
-#: models.py:14
+msgid "OIDC Form submissions"
+msgstr "OIDC Odeslané formuláře"
+
+msgid "OIDC Hidden Field"
+msgstr "OIDC Skryté pole"
+
+msgid "OIDC Number Field"
+msgstr "OIDC Pole číslo"
+
+msgid "OIDC Phone Field"
+msgstr "OIDC Pole telefon"
+
+msgid "OIDC Text Area Field"
+msgstr "OIDC Víceřádkové textové pole"
+
+msgid "OIDC Text Field"
+msgstr "OIDC Textové pole"
+
+msgid "OIDC Yes/No Field"
+msgstr "OIDC Ano/Ne pole"
+
 msgid "OIDC attributes"
 msgstr "OIDC atributy"
 
-#: models.py:15
 msgid "OIDC attributes handovered from provider (names separated by space)."
 msgstr "Seznam OIDC údajů předaných poskytovatelem (položky oddělené mezerou)."
+
+msgid "OpenID Connect Form"
+msgstr "OpenID Connect Formulář"
+
+msgid "OpenID Connect Form Field"
+msgstr "OpenID Connect Formulářové pole"
+
+msgid "The value of the field cannot be changed by the user."
+msgstr "Hodnotu pole nemůže uživatel změnit."
+
+msgid "Unmodifiable"
+msgstr "Nezměnitelné"
+
+msgid "Used as the email subject when email_send_notification is checked."
+msgstr ""
+"Použito jako předmět e-mailu, pokud je zaškrtnuto pole Při odeslání "
+"formuláře zaslat upozornění."
+
+msgid ""
+"When checked, the value of this field will be used to send an email "
+"notification."
+msgstr ""
+"Je-li zaškrtnuto, bude se při odeslání formuláře zasílat e-mailové "
+"upozornění."
+
+msgid "columns"
+msgstr "slupce"
+
+msgid "email subject"
+msgstr "předmět zprávy"
+
+msgid "rows"
+msgstr "řádky"
+
+msgid "send notification when form is submitted"
+msgstr "při odeslání formuláře zaslat upozornění"

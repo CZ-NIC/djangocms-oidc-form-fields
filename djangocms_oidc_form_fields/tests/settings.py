@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'aldryn_forms',
     # the project
     'djangocms_oidc',
+    'django_countries',
     'djangocms_oidc_form_fields',
 ]
 

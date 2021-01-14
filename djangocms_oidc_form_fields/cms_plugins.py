@@ -1,3 +1,4 @@
+import logging
 import re
 
 from aldryn_forms.cms_plugins import (
@@ -11,15 +12,22 @@ from aldryn_forms.cms_plugins import (
     TextAreaField,
     TextField,
 )
-from aldryn_forms.forms import FormSubmissionBaseForm
+from aldryn_forms.helpers import get_user_name
 from aldryn_forms.signals import form_post_save, form_pre_save
+from aldryn_forms.validators import is_valid_recipient
 from cms.plugin_pool import plugin_pool
 from django import forms
+from django.conf import settings
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
 from djangocms_oidc.helpers import get_user_info
+from emailit.api import send_mail
+from emailit.utils import get_template_names
 
+from .forms import OIDCFormSubmissionBaseForm
 from .models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
+
+logger = logging.getLogger(__name__)
 
 
 @plugin_pool.register_plugin
@@ -78,8 +86,8 @@ class OIDCFormPlugin(FormPlugin):
         """
         fields = self.get_form_fields(instance, request)
         formClass = (
-            type(FormSubmissionBaseForm)
-            ('OIDCAldrynDynamicForm', (FormSubmissionBaseForm,), fields)
+            type(OIDCFormSubmissionBaseForm)
+            ('OIDCAldrynDynamicForm', (OIDCFormSubmissionBaseForm,), fields)
         )
         return formClass
 
@@ -94,6 +102,58 @@ class OIDCFormPlugin(FormPlugin):
             else:
                 form_fields[field.name] = field_plugin.get_form_field(plugin_instance)
         return form_fields
+
+    def send_notifications(self, instance, form, user_info=None):
+        users = instance.recipients.exclude(email='')
+
+        recipients = [user for user in users.iterator()
+                      if is_valid_recipient(user.email)]
+
+        formatters = getattr(settings, 'DJANGOCMS_OIDC_FORM_FIELDS_ADMIN_USER_INFO', {})
+        user_info_data = []
+        if user_info is not None:
+            for key in sorted(user_info.keys()):
+                value = formatters.get(key, lambda v: v)(user_info[key])
+                user_info_data.append((key.replace('_', ' '), value))
+        context = {
+            'form_name': instance.name,
+            'form_data': form.get_serialized_field_choices(),
+            'form_plugin': instance,
+            'user_info_data': user_info_data,
+        }
+
+        from_email = None
+        for field_name, field_instance in form.fields.items():
+            if hasattr(field_instance, '_model_instance') and \
+                    field_instance._model_instance.plugin_type == 'EmailIntoFromField':
+                if form.cleaned_data.get(field_name):
+                    from_email = form.cleaned_data[field_name]
+                    break
+
+        subject_template_base = getattr(
+            settings, 'ALDRYN_FORMS_EMAIL_SUBJECT_TEMPLATES_BASE',
+            getattr(settings, 'ALDRYN_FORMS_EMAIL_TEMPLATES_BASE', None))
+        if subject_template_base:
+            language = instance.language or get_language()
+            subject_templates = get_template_names(language, subject_template_base, 'subject', 'txt')
+        else:
+            subject_templates = None
+
+        send_mail(
+            recipients=[user.email for user in recipients],
+            context=context,
+            template_base=getattr(
+                settings, 'DJANGOCMS_OIDC_FORM_FIELDS_EMAIL_TEMPLATES_BASE',
+                'djangocms_oidc_form_fields/emails/notification'
+            ),
+            subject_templates=subject_templates,
+            language=instance.language,
+            from_email=from_email,
+        )
+
+        users_notified = [
+            (get_user_name(user), user.email) for user in recipients]
+        return users_notified
 
 
 class OIDCFieldMixin:
