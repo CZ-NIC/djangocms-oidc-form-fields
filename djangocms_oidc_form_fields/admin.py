@@ -12,6 +12,9 @@ from .models import OIDCFormSubmission
 class OIDCFormSubmissionAdmin(FormSubmissionAdmin):
 
     readonly_fields = FormSubmissionAdmin.readonly_fields + ['get_user_info_for_display']
+    export_fields = FormSubmissionAdmin.export_fields + (
+        ('user_info', _('user info'), True),
+    )
 
     class Media:
         css = {
@@ -29,6 +32,14 @@ class OIDCFormSubmissionAdmin(FormSubmissionAdmin):
         return mark_safe("<div class='admin-user-info'>{}</div>".format("\n".join(content)))
     get_user_info_for_display.allow_tags = True
     get_user_info_for_display.short_description = _('Handovered data')
+
+    def export_field_parse_user_info(self, submission):
+        """Parse export form field user_info."""
+        fields, values = {}, {}
+        values = json.loads(submission.user_info)
+        for name in values.keys():
+            fields[name] = name.replace("_", " ")
+        return fields, values
 
 
 admin.site.register(OIDCFormSubmission, OIDCFormSubmissionAdmin)
