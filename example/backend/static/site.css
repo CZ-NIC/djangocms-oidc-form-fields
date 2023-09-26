@@ -1,0 +1,85 @@
+ul.messagelist {
+    list-style-type: none;
+    margin: 0 0 1rem;
+    padding: 0;
+}
+
+ul.messagelist li {
+    list-style-image: none;
+    margin: 0;
+    padding: 0.6rem 1.6rem;
+}
+
+ul.messagelist li.info {
+    background-color: #1ba5cf;
+}
+
+ul.messagelist li.warning {
+    background-color: #f6d128;
+}
+
+ul.messagelist li.success {
+    background-color: #32c518;
+}
+
+ul.messagelist li.error {
+    background-color: #e12637;
+}
+
+.djangocms-oidc-dismiss,
+.djangocms-oidc-signup,
+.logout-from-editation {
+    color: #fff;
+    display: inline-block;
+    padding: 0.3375rem 0.75rem;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid var(--bs-btn-border-color);
+    border-radius: 0.3375rem;
+    margin-left: 1rem;
+}
+
+.djangocms-oidc-dismiss {
+    background-color: #6c757d;
+}
+
+.djangocms-oidc-dismiss:hover {
+    color: #e4dada;
+    background-color: #3b3d3f;
+}
+
+.djangocms-oidc-signup {
+    background-color: #0dcaf0;
+}
+
+.djangocms-oidc-signup:hover {
+    color: #e4dada;
+    background-color: #009cbb;
+}
+
+.logout-from-editation {
+    background-color: #198754;
+}
+
+.logout-from-editation:hover {
+    color: #e4dada;
+    background-color: #007740;
+}
+
+.djangocms-oidc-delete-identifiers {
+    border: solid 1px #a1a1a1;
+    padding: 1em;
+}
+
+.djangocms-oidc-delete-identifiers input[type=submit] {
+    padding: 0.3375rem 0.75rem;
+}
+
+.user-identifiers li {
+    list-style-type: none;
+}
+
+.user-identifiers span {
+    margin-left: 1rem;
+}

@@ -2,10 +2,10 @@
 
 <p>{% blocktrans %}Form name: {{ form_name }}{% endblocktrans %}</p>
 
-<h3>{% trans "Form data:" %}</h3>
+<h3>{% translate "Form data:" %}</h3>
 
 {% include "aldryn_forms/emails/includes/form_data.html" %}
 
-<h3>{% trans "Handovered data:" %}</h3>
+<h3>{% translate "Handovered data:" %}</h3>
 
 {% include "djangocms_oidc_form_fields/emails/includes/user_info_data.html" %}

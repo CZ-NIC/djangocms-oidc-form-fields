@@ -1,7 +1,7 @@
 import logging
 
 from aldryn_forms.action_backends_base import BaseAction
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from djangocms_oidc.helpers import get_user_info
 
 logger = logging.getLogger(__name__)
@@ -25,5 +25,5 @@ class EmailAction(BaseAction):
 
     def form_valid(self, cmsplugin, instance, request, form):
         recipients = cmsplugin.send_notifications(instance, form, get_user_info(request))
-        logger.info('Sent email notifications to {} recipients.'.format(len(recipients)))
+        logger.info(f'Sent email notifications to {len(recipients)} recipients.')
         cmsplugin.send_success_message(instance, request)

@@ -82,3 +82,4 @@ LANGUAGES = [
 
 SITE_ID = 1
 ROOT_URLCONF = 'djangocms_oidc_form_fields.tests.urls'
+STATIC_URL = '/static/'

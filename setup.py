@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from distutils.command.build import build
+
+from setuptools import find_packages, setup
 
 
 class CustomBuild(build):
@@ -12,35 +13,31 @@ setup(
     name='djangocms-oidc-form-fields',
     version='1.0.0',
     description='Plugin OIDC (OpenID Connect) for Aldryn form fields.',
+    long_description=open('README.rst').read(),
+    long_description_content_type='text/x-rst',
     url='https://github.com/CZ-NIC/djangocms-oidc-form-fields',
     license='GPL GNU License',
     platforms=['OS Independent'],
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
-        'Framework :: DjangoCMS',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Framework :: Django CMS',
-        'Framework :: Django CMS :: 3.7',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Framework :: Django CMS :: 3.11',
     ),
     install_requires=(
-        'django>=2.0.0,<3.0.0',
-        'django-cms==3.7.4',
-        'djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@frozen-versions',
-        # Default installs aldryn-forms 4.0.1, which is incompatible.
-        # Version aldryn-forms > 5.0.4 is compatible only with python 3.7.
-        'aldryn-forms @ git+https://github.com/zbohm/aldryn-forms.git@email-into-from_5_0_5',
+        'django-cms~=3.11',
+        'djangocms-aldryn-forms~=7.0',
+        'djangocms-oidc~=4.0',
     ),
     extras_require={
         'quality': ['isort', 'flake8'],

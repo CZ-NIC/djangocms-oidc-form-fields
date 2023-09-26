@@ -8,7 +8,7 @@ from .models import OIDCFormSubmission
 class OIDCFormSubmissionBaseForm(FormSubmissionBaseForm):
 
     def __init__(self, *args, **kwargs):
-        super(OIDCFormSubmissionBaseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.instance = OIDCFormSubmission(
             name=self.form_plugin.name,
             language=self.form_plugin.language,

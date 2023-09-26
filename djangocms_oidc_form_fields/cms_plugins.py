@@ -4,7 +4,6 @@ import re
 from aldryn_forms.cms_plugins import (
     BooleanField,
     EmailField,
-    EmailIntoFromField,
     FormPlugin,
     HiddenField,
     NumberField,
@@ -18,8 +17,8 @@ from aldryn_forms.validators import is_valid_recipient
 from cms.plugin_pool import plugin_pool
 from django import forms
 from django.conf import settings
-from django.utils.encoding import force_text
-from django.utils.translation import get_language, ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import get_language, gettext_lazy as _
 from djangocms_oidc.helpers import get_user_info
 from emailit.api import send_mail
 from emailit.utils import get_template_names
@@ -122,12 +121,12 @@ class OIDCFormPlugin(FormPlugin):
             'user_info_data': user_info_data,
         }
 
-        from_email = None
+        reply_to = None
         for field_name, field_instance in form.fields.items():
             if hasattr(field_instance, '_model_instance') and \
-                    field_instance._model_instance.plugin_type == 'EmailIntoFromField':
+                    field_instance._model_instance.plugin_type == 'EmailField':
                 if form.cleaned_data.get(field_name):
-                    from_email = form.cleaned_data[field_name]
+                    reply_to = [form.cleaned_data[field_name]]
                     break
 
         subject_template_base = getattr(
@@ -148,7 +147,7 @@ class OIDCFormPlugin(FormPlugin):
             ),
             subject_templates=subject_templates,
             language=instance.language,
-            from_email=from_email,
+            from_email=reply_to,
         )
 
         users_notified = [
@@ -187,7 +186,7 @@ class OIDCFieldMixin:
             value = user_info.get(key)
             if isinstance(value, dict) and value.get('formatted'):
                 value = value['formatted']
-            values.append("" if value is None else force_text(value))
+            values.append("" if value is None else force_str(value))
         return " ".join(values)
 
     def get_form_field_kwargs(self, instance, request=None):
@@ -236,9 +235,3 @@ class OIDCEmailField(OIDCFieldMixin, EmailField):
 @plugin_pool.register_plugin
 class OIDCBooleanField(OIDCFieldMixin, BooleanField):
     name = _('OIDC Yes/No Field')
-
-
-@plugin_pool.register_plugin
-class OIDCEmailIntoFromField(OIDCFieldMixin, EmailIntoFromField):
-    name = _('OIDC Email into From Field')
-    model = OIDCEmailFieldPlugin
