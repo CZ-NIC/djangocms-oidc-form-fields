@@ -147,7 +147,7 @@ class OIDCFormPlugin(FormPlugin):
             ),
             subject_templates=subject_templates,
             language=instance.language,
-            from_email=reply_to,
+            reply_to=reply_to,
         )
 
         users_notified = [
