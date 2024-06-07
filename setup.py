@@ -34,6 +34,7 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Framework :: Django CMS :: 3.11',
     ),
+    python_requires='>=3.9',
     install_requires=(
         'django-cms~=3.11',
         'djangocms-aldryn-forms~=7.0',

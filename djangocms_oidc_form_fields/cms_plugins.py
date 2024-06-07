@@ -1,5 +1,6 @@
 import logging
 import re
+from typing import Optional
 
 from aldryn_forms.cms_plugins import (
     BooleanField,
@@ -14,6 +15,7 @@ from aldryn_forms.cms_plugins import (
 from aldryn_forms.helpers import get_user_name
 from aldryn_forms.signals import form_post_save, form_pre_save
 from aldryn_forms.validators import is_valid_recipient
+from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django import forms
 from django.conf import settings
@@ -24,7 +26,7 @@ from emailit.api import send_mail
 from emailit.utils import get_template_names
 
 from .forms import OIDCFormSubmissionBaseForm
-from .models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
+from .models import OIDCElementPlugin, OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
 
 logger = logging.getLogger(__name__)
 
@@ -155,7 +157,30 @@ class OIDCFormPlugin(FormPlugin):
         return users_notified
 
 
-class OIDCFieldMixin:
+class OIDCGetValueMixin:
+
+    def get_oidc_values(self, user_info: Optional[dict[str, str]], attributes: str) -> list[str]:
+        """Get OIDC values."""
+        values = []
+        if user_info is None:
+            return values
+        for key in re.split(r'\s+', attributes):
+            if "." in key:
+                chunks = key.split(".")
+                values.extend(self.get_oidc_values(user_info.get(chunks[0]), ".".join(chunks[1:])))
+            else:
+                value = user_info.get(key)
+                if isinstance(value, dict) and value.get('formatted'):
+                    value = value['formatted']
+                values.append("" if value is None else force_str(value))
+        return values
+
+    def get_oidc_attribute_value(self, user_info: dict[str, str], attributes: str) -> str:
+        """Get OIDC attribute value."""
+        return " ".join(self.get_oidc_values(user_info, attributes))
+
+
+class OIDCFieldMixin(OIDCGetValueMixin):
     module = _('OpenID Connect Form Field')
     model = OIDCFieldPlugin
 
@@ -179,15 +204,6 @@ class OIDCFieldMixin:
         # and also to the plugin class instance
         field._plugin_instance = self
         return field
-
-    def get_oidc_attribute_value(self, user_info, attributes):
-        values = []
-        for key in re.split(r'\s+', attributes):
-            value = user_info.get(key)
-            if isinstance(value, dict) and value.get('formatted'):
-                value = value['formatted']
-            values.append("" if value is None else force_str(value))
-        return " ".join(values)
 
     def get_form_field_kwargs(self, instance, request=None):
         kwargs = super().get_form_field_kwargs(instance)
@@ -235,3 +251,19 @@ class OIDCEmailField(OIDCFieldMixin, EmailField):
 @plugin_pool.register_plugin
 class OIDCBooleanField(OIDCFieldMixin, BooleanField):
     name = _('OIDC Yes/No Field')
+
+
+@plugin_pool.register_plugin
+class OIDCSpanElement(OIDCGetValueMixin, CMSPluginBase):
+    name = _('OIDC Span element')
+    module = _('OpenID Connect Elements')
+    model = OIDCElementPlugin
+    render_template = "djangocms_oidc_form_fields/span.html"
+    cache = False
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        user_info = get_user_info(context["request"])
+        if user_info is not None:
+            context["oidc_hangovered_value"] = self.get_oidc_attribute_value(user_info, instance.oidc_attributes)
+        return context

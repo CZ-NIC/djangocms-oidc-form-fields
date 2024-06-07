@@ -70,6 +70,9 @@ msgstr "OIDC Pole číslo"
 msgid "OIDC Phone Field"
 msgstr "OIDC Pole telefon"
 
+msgid "OIDC Span element"
+msgstr "OIDC Span element"
+
 msgid "OIDC Text Area Field"
 msgstr "OIDC Víceřádkové textové pole"
 
@@ -84,6 +87,9 @@ msgstr "OIDC atributy"
 
 msgid "OIDC attributes handovered from provider (names separated by space)."
 msgstr "Seznam OIDC údajů předaných poskytovatelem (položky oddělené mezerou)."
+
+msgid "OpenID Connect Elements"
+msgstr "OpenID Connect Elementy"
 
 msgid "OpenID Connect Form"
 msgstr "OpenID Connect Formulář"

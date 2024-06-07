@@ -81,6 +81,7 @@ These plugins are available to the editor in the administration:
   * OIDC Phone
   * OIDC Number
   * OIDC Boolean
+  * OIDC Span element
 
 How to use provider MojeID
 ==========================

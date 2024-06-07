@@ -1,6 +1,11 @@
 from django.test import TestCase
 
-from djangocms_oidc_form_fields.models import OIDCEmailFieldPlugin, OIDCFieldPlugin, OIDCTextAreaFieldPlugin
+from djangocms_oidc_form_fields.models import (
+    OIDCElementPlugin,
+    OIDCEmailFieldPlugin,
+    OIDCFieldPlugin,
+    OIDCTextAreaFieldPlugin,
+)
 
 
 class TestOIDCFieldPlugin(TestCase):
@@ -43,3 +48,13 @@ class TestOIDCFieldPlugin(TestCase):
         self.assertFalse(obj.email_send_notification)
         self.assertEqual(obj.email_subject, "")
         self.assertEqual(obj.email_body, "")
+
+
+class TestOIDCElementPlugin(TestCase):
+
+    def test_field(self):
+        obj = OIDCElementPlugin(oidc_attributes='given_name family_name')
+        obj.save()
+        self.assertEqual(obj.pk, obj.cmsplugin_ptr_id)
+        self.assertEqual(obj.oidc_attributes, 'given_name family_name')
+        self.assertEqual(str(obj), 'given_name family_name')

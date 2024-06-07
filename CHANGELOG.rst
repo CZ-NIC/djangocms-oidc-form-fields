@@ -2,6 +2,12 @@
 Changelog
 =========
 
+3.0.0 (2024-06-07)
+==================
+
+* Restrict python version to >= 3.9.
+* Add plugin OIDCSpanElement.
+
 2.0.1 (2023-09-27)
 ==================
 

@@ -1,4 +1,5 @@
 from aldryn_forms.models import FieldPluginBase, FormSubmissionBase
+from cms.models.pluginmodel import CMSPlugin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -64,3 +65,15 @@ class OIDCEmailFieldPlugin(OIDCFieldPluginBase):
         help_text=_('Additional body text used when email notifications '
                     'are active.')
     )
+
+
+class OIDCElementPlugin(CMSPlugin):
+    """OIDC HTML element model."""
+
+    oidc_attributes = models.CharField(
+        verbose_name=_('OIDC attributes'), max_length=255,
+        help_text=_('OIDC attributes handovered from provider (names separated by space).')
+    )
+
+    def __str__(self):
+        return self.oidc_attributes
