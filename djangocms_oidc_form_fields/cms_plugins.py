@@ -263,7 +263,10 @@ class OIDCSpanElement(OIDCGetValueMixin, CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
-        user_info = get_user_info(context["request"])
+        request = context["request"]
+        user_info = get_user_info(request)
         if user_info is not None:
             context["oidc_hangovered_value"] = self.get_oidc_attribute_value(user_info, instance.oidc_attributes)
+        elif hasattr(request, 'toolbar') and request.toolbar.edit_mode_active:
+            context["oidc_hangovered_value"] = instance.oidc_attributes
         return context

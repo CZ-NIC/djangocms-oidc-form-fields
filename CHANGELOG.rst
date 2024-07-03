@@ -2,6 +2,11 @@
 Changelog
 =========
 
+3.0.1 (2024-07-03)
+==================
+
+* Display oidc_attributes value in OIDCSpanElement.oidc_hangovered_value when request.toolbar.edit_mode_active.
+
 3.0.0 (2024-06-07)
 ==================
 
