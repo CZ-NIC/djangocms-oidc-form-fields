@@ -11,7 +11,7 @@ setup(
     author='Zdeněk Böhm',
     author_email='zdenek.bohm@nic.cz',
     name='djangocms-oidc-form-fields',
-    version='3.0.0',
+    version='3.0.1',
     description='Plugin OIDC (OpenID Connect) for Aldryn form fields.',
     long_description=open('README.rst').read(),
     long_description_content_type='text/x-rst',
