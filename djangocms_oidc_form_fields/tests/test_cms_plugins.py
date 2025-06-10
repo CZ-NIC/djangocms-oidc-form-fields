@@ -13,7 +13,7 @@ class TestOIDCFormPlugin(CMSTestCase):
 
     def setUp(self):
         self.page = create_page('test page', 'test_page.html', 'en', published=True, apphook='FormsApp')
-        self.placeholder = self.page.placeholders.get(slot='content')
+        self.placeholder = self.page.get_placeholders("en")[0]
 
     def test_get_with_session(self):
         form_plugin = add_plugin(self.placeholder, 'OIDCFormPlugin', 'en')
@@ -27,7 +27,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         add_plugin(self.placeholder, 'OIDCTextAreaField', 'en', name='address', target=form_plugin,
                    oidc_attributes='address')
 
-        self.page.publish('en')
+        # self.page.publish('en')
 
         session = self.client.session
         session[DJANGOCMS_USER_SESSION_KEY] = {
@@ -66,7 +66,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         add_plugin(self.placeholder, 'OIDCTextField', 'en', name='name', required=True, target=form_plugin)
         add_plugin(self.placeholder, 'OIDCEmailField', 'en', name='email', required=True, target=form_plugin,
                    oidc_attributes='email')
-        self.page.publish('en')
+        # self.page.publish('en')
         response = self.client.get(self.page.get_absolute_url('en'))
         self.assertContains(
             response, """<input type="text" name="name" class="" required disabled id="id_name">""", html=True)
@@ -78,7 +78,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         add_plugin(self.placeholder, 'OIDCEmailField', 'en', name='email', required=True, target=form_plugin,
                    oidc_attributes='email')
 
-        self.page.publish('en')
+        # self.page.publish('en')
         aldryn_form = FormPlugin.objects.last()
         session = self.client.session
         session[DJANGOCMS_USER_SESSION_KEY] = {
@@ -97,7 +97,7 @@ class TestOIDCFormPlugin(CMSTestCase):
         add_plugin(self.placeholder, 'OIDCEmailField', 'en', name='email', required=True, target=form_plugin,
                    oidc_attributes='email')
 
-        self.page.publish('en')
+        # self.page.publish('en')
         aldryn_form = FormPlugin.objects.last()
 
         response = self.client.post(self.page.get_absolute_url('en'), {
