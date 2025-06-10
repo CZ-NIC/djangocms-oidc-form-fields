@@ -15,6 +15,7 @@ class OIDCFormSubmissionAdmin(FormSubmissionAdmin):
     export_fields = FormSubmissionAdmin.export_fields + (
         ('user_info', _('user info'), True),
     )
+    change_list_template = "admin/aldryn_forms/formsubmission/change_list.html"
 
     class Media:
         css = {

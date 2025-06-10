@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'treebeard',
     'sekizai',
     'easy_thumbnails',
+    'djangocms_alias',
     # dependencies
     'mozilla_django_oidc',
     'filer',
@@ -80,6 +81,9 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
+CMS_CONFIRM_VERSION4 = True
 SITE_ID = 1
 ROOT_URLCONF = 'djangocms_oidc_form_fields.tests.urls'
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
