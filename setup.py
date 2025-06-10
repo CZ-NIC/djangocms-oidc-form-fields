@@ -34,11 +34,8 @@ setup(
     ),
     python_requires='>=3.10',
     install_requires=(
-        # 'django-cms~=4.1',
-        # 'djangocms-aldryn-forms~=7.0',
-        "djangocms-aldryn-forms[captcha] @ git+https://github.com/CZ-NIC/djangocms-aldryn-forms@b7368e4a6abb32744e8fa2f2e7ee914cd0b62c00",
-        # 'djangocms-oidc~=4.0',
-        "djangocms-oidc @ git+https://github.com/CZ-NIC/djangocms-oidc@upgrade-cms",
+        'djangocms-oidc~=5.0',
+        "djangocms-aldryn-forms[captcha]~=8.0",
     ),
     extras_require={
         'quality': ['isort', 'flake8'],
