@@ -36,7 +36,7 @@ setup(
     python_requires='>=3.10',
     install_requires=(
         'djangocms-oidc~=5.0',
-        "djangocms-aldryn-forms[captcha]~=8.3",
+        "djangocms-aldryn-forms[captcha]>=8.3.1,<9",
     ),
     extras_require={
         'quality': ['isort', 'flake8'],
