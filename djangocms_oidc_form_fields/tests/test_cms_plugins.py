@@ -40,21 +40,21 @@ class TestOIDCFormPlugin(CMSTestCase):
 
         self.assertContains(
             response,
-            """<input type="email" name="email" value="mail@foo.foo" class="" required disabled id="id_email">""",
+            """<input type="email" name="email" value="mail@foo.foo" required disabled id="id_email">""",
             html=True)
         self.assertContains(
             response,
-            """<input type="text" name="name" value="Tester" class="" id="id_name">""",
+            """<input type="text" name="name" value="Tester" id="id_name">""",
             html=True)
         self.assertContains(
-            response, """<input type="checkbox" name="student" class="" id="id_student">""", html=True)
+            response, """<input type="checkbox" name="student" id="id_student">""", html=True)
         self.assertContains(
             response,
-            """<input type="checkbox" name="validated" value="True" class="" disabled id="id_validated" checked>""",
+            """<input type="checkbox" name="validated" value="True" disabled id="id_validated" checked>""",
             html=True)
         self.assertContains(
             response, """
-                <textarea name="address" type="text" class="" disabled id="id_address">
+                <textarea name="address" type="text" disabled id="id_address">
                     Street 42
                     123 00 City
                 </textarea>""", html=True)
@@ -66,9 +66,9 @@ class TestOIDCFormPlugin(CMSTestCase):
                    oidc_attributes='email')
         response = self.client.get(self.page.get_absolute_url('en'))
         self.assertContains(
-            response, """<input type="text" name="name" class="" required disabled id="id_name">""", html=True)
+            response, """<input type="text" name="name" required disabled id="id_name">""", html=True)
         self.assertContains(
-            response, """<input type="email" name="email" class="" required disabled id="id_email">""", html=True)
+            response, """<input type="email" name="email" required disabled id="id_email">""", html=True)
 
     def test_post(self):
         form_plugin = add_plugin(self.placeholder, 'OIDCFormPlugin', 'en')
@@ -99,7 +99,10 @@ class TestOIDCFormPlugin(CMSTestCase):
             "form_plugin_id": aldryn_form.pk,
             "email": "tester@foo.foo"
         })
-        self.assertEqual(response.context['form'].errors, {'email': ['This field is required.']})
+        self.assertEqual(response.context['form'].errors, {
+            'email': ['This field is required.'],
+            '__all__': ['The form could not be submitted. Please check that all form fields are filled in correctly.'],
+        })
 
 
 class TestOIDCElementPlugin(CMSTestCase):

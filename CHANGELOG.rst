@@ -2,6 +2,11 @@
 Changelog
 =========
 
+4.1.0 (2025-10-23)
+==================
+
+* Upgrade to django-cms>=4.1,<6.
+* Install djangocms-aldryn-forms[captcha]~=8.3.
 
 4.0.0 (2025-06-10)
 ==================

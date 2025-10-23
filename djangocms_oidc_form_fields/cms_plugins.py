@@ -118,7 +118,7 @@ class OIDCFormPlugin(FormPlugin):
                 user_info_data.append((key.replace('_', ' '), value))
         context = {
             'form_name': instance.name,
-            'form_data': form.get_serialized_field_choices(),
+            'form_data': form.get_serialized_fields(),
             'form_plugin': instance,
             'user_info_data': user_info_data,
         }
